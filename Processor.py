@@ -71,3 +71,16 @@ print('\n')
 
 print('{:.2f}% férfi'.format(percentage_calculator([person for person in people if person.sex == 'férfi'], people)))
 print('{:.2f}% nő'.format(percentage_calculator([person for person in people if person.sex == 'nő'], people)))
+
+print('\n')
+
+print('Felépült: {:.2f}%'.format(number_of_recoveries / number_of_infections * 100))
+print('Aktív esetek: {:.2f}%'.format(
+    (number_of_infections - number_of_recoveries - number_of_deaths) / number_of_infections * 100))
+print('Halálozás: {:.2f}%'.format(number_of_deaths / number_of_infections * 100))
+
+print('Halálozás megoszlása életkor szerint:')
+
+for i in range(0, 106):
+    victims = [person for person in people if person.age == i]
+    print('{0}: {1:.3f}%'.format(i, percentage_calculator(victims, people)))
