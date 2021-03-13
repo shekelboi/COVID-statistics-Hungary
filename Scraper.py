@@ -1,7 +1,9 @@
+from datetime import datetime
 from time import sleep
 from classes.Person import Person
 from bs4 import BeautifulSoup
 import requests
+import os
 
 base_url = "https://koronavirus.gov.hu/elhunytak?page="
 current_last_page = 329  # Goes until 0
@@ -22,19 +24,35 @@ for page_number in reversed(range(current_last_page + 1)):
         age = data[2].text.strip()
         chronic_illnesses = data[3].text.strip()
         person = Person(number, sex, age, chronic_illnesses)
-        #print(person)
         People.append(person)
-    sleep(0.2)
+    sleep(0.1)
 
-file = open("out.txt", "wb")
+now = datetime.now()
+directory = 'data'
+file_name = "{0}_{1}_{2}_{3}_{4}_{5}.txt".format(now.year, now.month, now.day, now.time().hour, now.time().minute,
+                                                 now.time().second)
+file = open(os.path.join(directory, file_name), "wb")
 
-for person in People:
-    file.write(str(str(person) + '\n').encode('utf-8'))
-    file.write('####\n'.encode('utf8'))
+
+def fix_encoding(text: str):
+    text = text.replace('õ', 'ő')
+    text = text.replace('ũ', 'ű')
+    text = text.replace('Õ', 'Ő')
+    text = text.replace('Ũ', 'Ű')
+    return text
+
+
+delimiter = '###'
+
+output = ("\n" + delimiter + "\n").join([str(person) for person in People])
+
+output = fix_encoding(output)
+
+file.write(output.encode('utf-8'))
 
 file.close()
 
-#print(soup.findAll('td', {'class': 'views-field views-field-field-elhunytak-sorszam'}))
+# print(soup.findAll('td', {'class': 'views-field views-field-field-elhunytak-sorszam'}))
 
 # for i in reversed(range(current_last_page + 1)):
 #     print(i)

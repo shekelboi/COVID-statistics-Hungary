@@ -22,7 +22,7 @@ data = open('data/data.txt', "r", encoding='utf-8').read()
 
 people = []
 
-for block in data.split("####"):
+for block in data.split("###"):
     number = get_value_from_block('Number:', block)
     sex = get_value_from_block('Sex:', block)
     age = get_value_from_block('Age:', block)
