@@ -1,19 +1,7 @@
 from time import sleep
-
-import requests
+from classes.Person import Person
 from bs4 import BeautifulSoup
-
-
-class Person:
-    def __init__(self, number, sex, age, chronic_illnesses):
-        self.number = number
-        self.sex = sex
-        self.age = age
-        self.chronic_illnesses = chronic_illnesses
-
-    def __str__(self):
-        return "Number: {0}\nSex: {1}\nAge: {2}\nChronic illnesses: {3}".format(self.number, self.sex, self.age, self.chronic_illnesses)
-
+import requests
 
 base_url = "https://koronavirus.gov.hu/elhunytak?page="
 current_last_page = 329  # Goes until 0
