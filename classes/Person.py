@@ -1,7 +1,7 @@
 class Person:
     def __init__(self, number, sex, age, chronic_illnesses):
         self.number = int(number)
-        self.sex = sex
+        self.sex = sex.lower()
         self.age = int(age)
         self.chronic_illnesses = chronic_illnesses
 
