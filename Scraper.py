@@ -27,10 +27,8 @@ for page_number in reversed(range(current_last_page + 1)):
         People.append(person)
     sleep(0.1)
 
-now = datetime.now()
 directory = 'data'
-file_name = "{0}_{1}_{2}_{3}_{4}_{5}.txt".format(now.year, now.month, now.day, now.time().hour, now.time().minute,
-                                                 now.time().second)
+file_name = "{0}-{1}-{2}.txt".format(datetime.now().year, datetime.now().month, datetime.now().day)
 file = open(os.path.join(directory, file_name), "wb")
 
 
