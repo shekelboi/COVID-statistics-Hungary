@@ -1,3 +1,5 @@
+import re
+
 from classes.Person import Person
 from datetime import datetime
 import os
@@ -84,3 +86,23 @@ print('Halálozás megoszlása életkor szerint:')
 for i in range(0, 106):
     victims = [person for person in people if person.age == i]
     print('{0}: {1:.3f}%'.format(i, percentage_calculator(victims, people)))
+
+print('\n')
+
+obesity = [person.chronic_illnesses for person in people if re.search("elhízás", person.chronic_illnesses, re.IGNORECASE) is not None]
+print('Elhízás: {0:.3f}%'.format(percentage_calculator(obesity, people)))
+
+diabetes = [person.chronic_illnesses for person in people if re.search("cukorbeteg", person.chronic_illnesses, re.IGNORECASE) is not None]
+print('Cukorbetegség: {0:.3f}%'.format(percentage_calculator(diabetes, people)))
+
+high_blood_pressure = [person.chronic_illnesses for person in people if re.search("magas vérnyomás|magasvérnyomás", person.chronic_illnesses, re.IGNORECASE) is not None]
+print('Magas vérnyomás: {0:.3f}%'.format(percentage_calculator(high_blood_pressure, people)))
+
+to_be_uploaded = [person.chronic_illnesses for person in people if re.search("feltöltés alatt", person.chronic_illnesses, re.IGNORECASE) is not None]
+print('Feltöltés alatt: {0:.3f}%'.format(percentage_calculator(to_be_uploaded, people)))
+
+epilepsy = [person.chronic_illnesses for person in people if re.search("epilepszia", person.chronic_illnesses, re.IGNORECASE) is not None]
+print('Epilepszia: {0:.3f}%'.format(percentage_calculator(epilepsy, people)))
+
+arithmia = [person.chronic_illnesses for person in people if re.search("szívritmuszavar", person.chronic_illnesses, re.IGNORECASE) is not None]
+print('Szívritmuszavar: {0:.3f}%'.format(percentage_calculator(arithmia, people)))
